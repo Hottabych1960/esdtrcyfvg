@@ -2,17 +2,14 @@ import csv
 
 with open('students.csv', 'r', encoding='utf-8') as infile:
     data = [elem for elem in csv.reader(infile, delimiter=',')][1:]
-    array = '[]'
     print(data)
-    for i in range(len(data) - 1):
-        MIN = i
-        print(data[i])
-        if 'None' not in data[i]:
-            for j in range(i + 1, len(data)):
-                if int(data[j][-1]) < int(data[MIN][-1]):
-                    MIN = j
-            data[i], data[MIN] = data[MIN], data[i]
-
+    for i in range(len(data)):
+        j = i - 1
+        key = data[i]
+        while float(data[j][4] if data[j][4] != 'None' else 0) < float(key[4] if key[4] != 'None' else 0) and j >= 0:
+            data[j + 1] = data[j]
+            j -= 1
+        data[j + 1] = key
 
 print('10 класс:')
 k = 1
